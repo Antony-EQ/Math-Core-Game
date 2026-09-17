@@ -13,7 +13,7 @@ using static MathCoreUIBuilderUtils;
 public static class MathCoreMenuBuilder
 {
     private const string ScenePath = "Assets/Scenes/MainMenu.unity";
-    private const string BackgroundSpritePath = "Assets/Art/UI/MenuBackground.jpg";
+    private const string BackgroundSpritePath = "Assets/Art/UI/background_menu.jpg";
 
     [MenuItem("Math Core/Construir Pantalla de Menu")]
     public static void BuildMainMenuScene()
@@ -105,15 +105,15 @@ public static class MathCoreMenuBuilder
         Transform panel = panelRect.transform;
 
         Image background = CreateImage("Background", panel, Color.white);
-        Stretch(background.rectTransform);
-        background.preserveAspect = false;
         Sprite backgroundSprite = AssetDatabase.LoadAssetAtPath<Sprite>(BackgroundSpritePath);
         if (backgroundSprite != null)
         {
             background.sprite = backgroundSprite;
+            CoverFit(background.rectTransform, backgroundSprite, 1080f, 1920f);
         }
         else
         {
+            Stretch(background.rectTransform);
             background.color = NearBlackBackground;
             Debug.LogWarning("No se encontro " + BackgroundSpritePath + "; se usa un fondo solido en su lugar.");
         }

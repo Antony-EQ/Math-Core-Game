@@ -254,6 +254,21 @@ public static class MathCoreUIBuilderUtils
         return inputField;
     }
 
+    // Escala una imagen para cubrir por completo un area de canvasWidth x canvasHeight sin deformarse,
+    // recortando el sobrante centrado (equivalente a CSS "background-size: cover").
+    public static void CoverFit(RectTransform rect, Sprite sprite, float canvasWidth, float canvasHeight)
+    {
+        float imageWidth = sprite.rect.width;
+        float imageHeight = sprite.rect.height;
+        float scale = Mathf.Max(canvasWidth / imageWidth, canvasHeight / imageHeight);
+
+        rect.anchorMin = new Vector2(0.5f, 0.5f);
+        rect.anchorMax = new Vector2(0.5f, 0.5f);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.anchoredPosition = Vector2.zero;
+        rect.sizeDelta = new Vector2(imageWidth * scale, imageHeight * scale);
+    }
+
     public static void Stretch(RectTransform rect)
     {
         rect.anchorMin = Vector2.zero;
