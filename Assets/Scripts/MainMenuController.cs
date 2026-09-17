@@ -23,9 +23,40 @@ public class MainMenuController : MonoBehaviour
 
     private void Awake()
     {
+        if (!ValidateReferences())
+        {
+            return;
+        }
+
         saveNameButton.onClick.AddListener(SaveNameAndContinue);
         changeNameButton.onClick.AddListener(ShowNamePanel);
         playButton.onClick.AddListener(OnPlayClicked);
+    }
+
+    private bool ValidateReferences()
+    {
+        bool isValid = true;
+        isValid &= LogIfMissing(namePanel, nameof(namePanel));
+        isValid &= LogIfMissing(menuPanel, nameof(menuPanel));
+        isValid &= LogIfMissing(nameInput, nameof(nameInput));
+        isValid &= LogIfMissing(nameError, nameof(nameError));
+        isValid &= LogIfMissing(saveNameButton, nameof(saveNameButton));
+        isValid &= LogIfMissing(greetingText, nameof(greetingText));
+        isValid &= LogIfMissing(playButton, nameof(playButton));
+        isValid &= LogIfMissing(changeNameButton, nameof(changeNameButton));
+        return isValid;
+    }
+
+    private bool LogIfMissing(Object reference, string fieldName)
+    {
+        if (reference != null)
+        {
+            return true;
+        }
+
+        Debug.LogError($"MainMenuController: falta asignar '{fieldName}' en el Inspector. " +
+            "Vuelve a correr Math Core > Construir Pantalla de Menu, o arrastra el objeto correcto al campo.", this);
+        return false;
     }
 
     private void Start()
