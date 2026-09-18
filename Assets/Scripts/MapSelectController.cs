@@ -18,7 +18,7 @@ public class MapSelectController : MonoBehaviour
     private void Start()
     {
         string playerName = PlayerPrefs.GetString(PlayerNameKey, "JUGADOR");
-        titleText.text = $"MAPAS DE {playerName.ToUpperInvariant()}";
+        titleText.text = $"MAPAS";
     }
 
     private void OnGreeceClicked()
